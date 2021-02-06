@@ -1,0 +1,64 @@
+Prompt:Write an alg that takes a string with repeated chars and compresses them. Use a num to show how many time that repeated char has been compressed, aaa = 3a, solve prob with and without recursion.
+
+Example:
+  Input: "aaabccdddda"
+  Output: 3ab2c4da
+
+Pseudocode:
+-Safe to assume the input will always be a string
+-Output will also be a string
+-Solving without recursion
+-Counting only groups of letters
+
+// take an input as a string
+// convert string to an array
+// loop through that string in some way to find repeating chars that are immediately next to each other
+// create a counter variable that keeps track of repeating chars as they appear, reset this after I'm finished with a set of chars
+// replacing groups of chars with the counter plus the letter that is repeating
+// create a variable to temporarily hold the letter that is repeating, for example: save the letter a, but since c is repeating also, we will need to save the letter c
+// creating an output variable that holds an empty array where I can push the counter with the letter, plus additional letters that aren't repeating
+// convert output array to a string
+// return that string
+
+within the loop:
+// if (if letter is equal to the one to right of it && not equal to the letter to the left) {
+  add counter;
+}
+// if (letter that is equal to the right and the left ) {
+  add counter;
+}
+// if (letter to the right is not equal, and the letter to the left is equal) {
+  add counter;
+}
+// if (letter is not equal to left or right) {
+  push this letter to the output array
+}
+
+Code:
+function compression(string) {
+  let output = [];
+  let counter = 0;
+  let repeatingLetter = "";
+  let strArray = string.split('');
+  for (let i = 0; i < strArray.length;i++){
+    if (strArray[i] != strArray[i-1] && strArray[i] == strArray[i+1]) {
+      counter++;
+      repeatingLetter = strArray[i];
+    } else if (strArray[i] == strArray[i-1] && strArray[i] == strArray[i+1]) {
+      counter++;
+    } else if (strArray[i] == strArray[i-1] && strArray[i] != strArray[i+1]) {
+      counter++;
+      output.push(counter);
+      output.push(repeatingLetter);
+      counter = 0;
+    } else if (strArray[i] != strArray[i-1] && strArray[i] != strArray[i+1]) {
+      output.push(strArray[i]);
+    }
+  }
+  output = output.join('');
+  return output;
+}
+
+Input/Output:
+  Input: "aaabccdddda"
+  Output: 3ab2c4da
